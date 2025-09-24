@@ -19,7 +19,7 @@ services:
     depends_on:
       - backend
     restart: always
-
+# hahah
 networks:
   default:
     name: learnking-network
