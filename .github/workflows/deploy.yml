@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -24,17 +24,3 @@ jobs:
         run: |
           docker compose build
           docker compose push
-
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd ~/LearnKing || mkdir ~/LearnKing && cd ~/LearnKing
-            echo "${{ secrets.DB_CONNECTION_STRING }}" > .env
-            docker compose pull
-            docker compose down
-            docker compose up -d
-            docker image prune -f
