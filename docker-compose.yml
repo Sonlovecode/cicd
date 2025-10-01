@@ -1,26 +1,22 @@
-version: '3.8'
-
 services:
   backend:
     build: ./sever
-    image: ${DOCKER_USERNAME}/learnking-backend:latest
+    image: "your-docker-username/learnking-backend:latest"
     container_name: learnking-backend
     ports:
       - "5005:86"
-    env_file: .env
     restart: always
 
   frontend:
     build: ./cilent
-    image: ${DOCKER_USERNAME}/learnking-frontend:latest
+    image: "your-docker-username/learnking-frontend:latest"
     container_name: learnking-frontend
     ports:
       - "3000:80"
     depends_on:
       - backend
     restart: always
-# hahah
+
 networks:
   default:
     name: learnking-network
-    

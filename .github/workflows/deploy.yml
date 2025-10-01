@@ -18,15 +18,21 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Debug DOCKER_USERNAME
+      - name: Debug DOCKER_USERNAME (length)
         run: |
-          echo "DOCKER_USERNAME='${{ secrets.DOCKER_USERNAME }}'"
-          echo -n "Length: "
-          echo -n "${{ secrets.DOCKER_USERNAME }}" | wc -c
+          printf "DOCKER_USERNAME='"
+          printf '%s' "${{ secrets.DOCKER_USERNAME }}"
+          printf "'\nLength: "
+          printf '%s' "${{ secrets.DOCKER_USERNAME }}" | wc -c
+          printf "\n"
 
       - name: Build & Push Docker Images
         run: |
-          DOCKER_USERNAME=$(echo -n "${{ secrets.DOCKER_USERNAME }}")
+          # sanitize the secret (remove any trailing newlines)
+          DOCKER_USERNAME="$(printf '%s' "${{ secrets.DOCKER_USERNAME }}")"
           export DOCKER_USERNAME
+          # optional: show resolved config for debugging (will replace ${DOCKER_USERNAME})
+          docker compose config --resolve-image-digests
+          # build & push
           docker compose build
           docker compose push
