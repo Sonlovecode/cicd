@@ -1,6 +1,6 @@
 services:
   backend:
-    build: ./sever
+    build: ./server
     image: "${DOCKER_USERNAME}/learnking-backend:latest"
     container_name: learnking-backend
     ports:
@@ -8,7 +8,7 @@ services:
     restart: always
 
   frontend:
-    build: ./cilent
+    build: ./client
     image: "${DOCKER_USERNAME}/learnking-frontend:latest"
     container_name: learnking-frontend
     ports:
@@ -16,7 +16,3 @@ services:
     depends_on:
       - backend
     restart: always
-
-networks:
-  default:
-    name: learnking-network
