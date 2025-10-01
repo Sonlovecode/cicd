@@ -20,14 +20,13 @@ jobs:
 
       - name: Debug DOCKER_USERNAME
         run: |
-          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
-          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
-            echo "DOCKER_USERNAME is empty!"; exit 1;
-          fi
+          echo "DOCKER_USERNAME='${{ secrets.DOCKER_USERNAME }}'"
+          echo -n "Length: "
+          echo -n "${{ secrets.DOCKER_USERNAME }}" | wc -c
 
       - name: Build & Push Docker Images
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: |
+          DOCKER_USERNAME=$(echo -n "${{ secrets.DOCKER_USERNAME }}")
+          export DOCKER_USERNAME
           docker compose build
           docker compose push
