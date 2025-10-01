@@ -1,7 +1,7 @@
 services:
   backend:
     build: ./sever
-    image: "your-docker-username/learnking-backend:latest"
+    image: "${DOCKER_USERNAME}/learnking-backend:latest"
     container_name: learnking-backend
     ports:
       - "5005:86"
@@ -9,7 +9,7 @@ services:
 
   frontend:
     build: ./cilent
-    image: "your-docker-username/learnking-frontend:latest"
+    image: "${DOCKER_USERNAME}/learnking-frontend:latest"
     container_name: learnking-frontend
     ports:
       - "3000:80"
