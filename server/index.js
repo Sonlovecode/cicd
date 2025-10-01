@@ -55,3 +55,5 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Các phương thức HTTP cho phép
     allowedHeaders: ['Content-Type', 'Authorization'], // Các header cho phép
   }));
+
+  // Các route khác...
